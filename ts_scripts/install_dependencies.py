@@ -36,11 +36,11 @@ class Common:
                 sys.exit(1)
             else:
                 os.system(
-                    f"{sys.executable} -m pip install -U -r requirements/torch_{cuda_version}_{platform.system().lower()}.txt"
+                    f"{sys.executable} -m pip install -U -r requirements/torch_{cuda_version}_{platform.system().lower()}.txt -i http://pypi.douban.com/simple/ --trusted-host=pypi.douban.com/simple"
                 )
         else:
             os.system(
-                f"{sys.executable} -m pip install -U -r requirements/torch_{platform.system().lower()}.txt"
+                f"{sys.executable} -m pip install -U -r requirements/torch_{platform.system().lower()}.txt -i http://pypi.douban.com/simple/ --trusted-host=pypi.douban.com/simple"
             )
 
     def install_python_packages(self, cuda_version, requirements_file_path, nightly):
@@ -51,9 +51,9 @@ class Common:
             os.system("conda install -y conda-build")
 
         self.install_torch_packages(cuda_version)
-        os.system(f"{sys.executable} -m pip install -U pip setuptools")
+        os.system(f"{sys.executable} -m pip install -U pip setuptools -i http://pypi.douban.com/simple/ --trusted-host=pypi.douban.com/simple")
         # developer.txt also installs packages from common.txt
-        os.system(f"{sys.executable} -m pip install -U -r {requirements_file_path}")
+        os.system(f"{sys.executable} -m pip install -U -r {requirements_file_path} -i http://pypi.douban.com/simple/ --trusted-host=pypi.douban.com/simple")
         # If conda is available install conda-build package
 
         # TODO: This will run 2 installations for torch but to make this cleaner we should first refactor all of our requirements.txt into just 2 files
